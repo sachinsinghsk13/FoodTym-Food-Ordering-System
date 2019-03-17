@@ -1,0 +1,52 @@
+/* CSS for Admin Homepage*/
+.card-columns .card-text {
+    color: black;
+    font-size: 25px;
+
+}
+
+.card-columns .card-title {
+    font-size: 40px;
+    color: black;
+}
+
+/*CSS for New Registration Page*/
+
+.autocomplete-box {
+    position: relative;
+}
+
+.autocomplete-items {
+    position: absolute;
+    top: 100%;left: 0;right: 0;
+    background-color: white;
+    z-index:10;
+}
+
+.autocomplete-items div {
+    padding: 2px;
+    font-size: 1.2em;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.autocomplete-items div.activeSuggestion {
+    background-color: dodgerblue;
+    color:white;
+}
+.autocomplete-items div:hover {
+    background-color: #eee;
+    cursor: pointer;
+}
+
+.price_div , .price_type_checkboxes ,.price_type_row {
+    display: none;
+}
+#food-menu-tab > .col-md-4{
+    background-color: rgb(255, 251, 251);
+    margin: 15px 0px;
+    box-shadow: 2px 2px 10px grey;
+}
+.food-thumb {
+	width:70px;
+	height:70px;
+}
