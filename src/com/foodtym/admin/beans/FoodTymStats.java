@@ -7,7 +7,13 @@ public class FoodTymStats {
 	private int deliveryPerson;
 	private int localities;
 	private int orderWaiting;
-	
+	private String adminName;
+	public String getAdminName() {
+		return adminName;
+	}
+	public void setAdminName(String adminName) {
+		this.adminName = adminName;
+	}
 	public int getRestaurants() {
 		return restaurants;
 	}

@@ -1,14 +1,25 @@
 /* CSS for Admin Homepage*/
+
+.navbar {
+    font-size: 1.1em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .card-columns .card-text {
     color: black;
     font-size: 25px;
-
 }
 
 .card-columns .card-title {
-    font-size: 40px;
+    font-size: 45px;
     color: black;
 }
+
+.card:hover {
+    transform: scale(1.05);
+    transition: transform 500ms;
+}
+
 
 /*CSS for New Registration Page*/
 
@@ -49,4 +60,37 @@
 .food-thumb {
 	width:70px;
 	height:70px;
+}
+
+/*CSS for All Restaurant page*/
+
+#restaurant-search-bar {
+    width: 100%;
+    border: none;
+    box-shadow:0 0.1rem 0.3rem rgba(0,0,0,.175);
+    height: 20px;
+    padding: 1.2rem 2rem;
+    font-size: 1.2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    outline: none;
+    border-radius: 1rem;
+    color: rgb(84, 84, 87);
+}
+
+.myitem {
+    width: 100px;
+    height: 100px;
+    background-color: yellowgreen;
+    margin: 10px;
+}
+
+.result-item {
+    width: 380px;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+.result-item:hover {
+    transform: scale(1.02);
+    transition: transform 50ms;
 }

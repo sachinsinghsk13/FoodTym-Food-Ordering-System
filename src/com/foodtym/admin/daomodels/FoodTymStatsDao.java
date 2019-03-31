@@ -58,7 +58,10 @@ public class FoodTymStatsDao {
 		resultSet = statement.executeQuery();
 		if (resultSet.next())
 			foodTymStats.setDeliveryPerson(resultSet.getInt(1));
-		
+		statement = connection.prepareStatement(this.sqlQuries.getProperty("FOODTYM_ADMIN_FULL_NAME"));
+		resultSet = statement.executeQuery();
+		if (resultSet.next())
+			foodTymStats.setAdminName(resultSet.getString(1));
 		resultSet.close();
 		statement.close();
 		connection.close();

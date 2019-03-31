@@ -47,8 +47,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
 			LocalityDao dao = new LocalityDaoImpl(dataSource, sqlQueries);
 			Locality locality = dao.getLocality(localityId);
 			restaurant.setLocality(locality);
-			
-			
+
 			restaurant.setFssaiNo(resultSet.getString(3));
 			restaurant.setNote(resultSet.getString(4));
 
@@ -56,7 +55,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
 			RestaurantOwnerDao restaurantOwnerDao = new RestaurantOwnerDaoImpl(dataSource, sqlQueries);
 			RestaurantOwner restaurantOwner = restaurantOwnerDao.getRestaurantOwner(restaurantOwnerId);
 			restaurant.setOwner(restaurantOwner);
-			
+
 			restaurant.setAddress(resultSet.getString(6));
 			restaurant.setOpenTime(resultSet.getString(7));
 			restaurant.setCloseTime(resultSet.getString(8));
@@ -68,8 +67,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
 			statement.close();
 			connection.close();
 			return restaurant;
-		}
-		else {
+		} else {
 			resultSet.close();
 			statement.close();
 			connection.close();
@@ -98,11 +96,11 @@ public class RestaurantDaoImpl implements RestaurantDao {
 			statement.setString(2, restaurantOwner.getLastName());
 			statement.setString(3, restaurantOwner.getDob());
 			statement.setString(4, restaurantOwner.getGender().toString());
-			statement.setBinaryStream(5,new ByteArrayInputStream(restaurantOwner.getPicture()));
+			statement.setBinaryStream(5, new ByteArrayInputStream(restaurantOwner.getPicture()));
 			statement.setString(6, restaurantOwner.getMobileNo());
 			statement.setString(7, restaurantOwner.getEmail());
 			statement.setString(8, restaurantOwner.getAddress());
-			
+
 			statement.executeUpdate();
 			statement.close();
 
@@ -171,61 +169,93 @@ public class RestaurantDaoImpl implements RestaurantDao {
 	}
 
 	@Override
-	public List<JSONObject> searchRestaurantByName(String text) throws SQLException {
-		List<JSONObject> list = new ArrayList<>();
+	public List<Restaurant> searchRestaurantByNameOrId(String text) throws SQLException {
+		List<Restaurant> list = new ArrayList<>();
 		Connection connection = dataSource.getConnection();
-		PreparedStatement preparedStatement = connection.prepareStatement(sqlQueries.getProperty("SEARCH_RESTAURANT_BY_NAME"));
+		PreparedStatement preparedStatement = connection
+				.prepareStatement(sqlQueries.getProperty("SEARCH_RESTAURANT_BY_NAME_OR_ID"));
 		preparedStatement.setString(1, text + "%");
-		preparedStatement.setString(2, "%"+text+"%");
+		preparedStatement.setString(2, "%" + text + "%");
+		preparedStatement.setString(3, text);
 		ResultSet resultSet = preparedStatement.executeQuery();
 		while (resultSet.next()) {
-			JSONObject r = new JSONObject();
-			r.put("restaurantid", resultSet.getInt(1));
-			r.put("ownername", resultSet.getString(2));
-			r.put("restaurantname", resultSet.getString(3));
-			r.put("localityname", resultSet.getString(4));
-			r.put("ncrregion", resultSet.getString(5));
-			list.add(r);
+			// Create a new Restaurant
+			Restaurant restaurant = new Restaurant();
+
+			// set dependent beans
+			restaurant.setOwner(new RestaurantOwner());
+			restaurant.setLocality(new Locality());
+
+			// fetch results
+			restaurant.setId(resultSet.getInt(1));
+			restaurant.getOwner().setFirstName(resultSet.getString(2));
+			restaurant.getOwner().setLastName(resultSet.getString(3));
+			restaurant.setName(resultSet.getString(4));
+			restaurant.getLocality().setLocalityName(resultSet.getString(5));
+			restaurant.getLocality().setNcrRegionName(resultSet.getString(6));
+
+			// add restaurant to list
+			list.add(restaurant);
 		}
 		return list;
 	}
 
 	@Override
-	public List<JSONObject> searchRestaurantByLocality(String locality, String region) throws SQLException {
-		List<JSONObject> list = new ArrayList<>();
+	public List<Restaurant> searchRestaurantByLocality(String locality, String region) throws SQLException {
+		List<Restaurant> list = new ArrayList<>();
 		Connection connection = dataSource.getConnection();
-		PreparedStatement preparedStatement = connection.prepareStatement(sqlQueries.getProperty("SEARCH_RESTAURANT_BY_LOCALITY"));
+		PreparedStatement preparedStatement = connection
+				.prepareStatement(sqlQueries.getProperty("SEARCH_RESTAURANT_BY_LOCALITY"));
 		preparedStatement.setString(1, locality);
 		preparedStatement.setString(2, region);
 		ResultSet resultSet = preparedStatement.executeQuery();
 		while (resultSet.next()) {
-			JSONObject r = new JSONObject();
-			r.put("restaurantid", resultSet.getInt(1));
-			r.put("ownername", resultSet.getString(2));
-			r.put("restaurantname", resultSet.getString(3));
-			r.put("localityname", resultSet.getString(4));
-			r.put("ncrregion", resultSet.getString(5));
-			list.add(r);
+			// Create a new Restaurant
+			Restaurant restaurant = new Restaurant();
+
+			// set dependent beans
+			restaurant.setOwner(new RestaurantOwner());
+			restaurant.setLocality(new Locality());
+
+			// fetch results
+			restaurant.setId(resultSet.getInt(1));
+			restaurant.getOwner().setFirstName(resultSet.getString(2));
+			restaurant.getOwner().setLastName(resultSet.getString(3));
+			restaurant.setName(resultSet.getString(4));
+			restaurant.getLocality().setLocalityName(resultSet.getString(5));
+			restaurant.getLocality().setNcrRegionName(resultSet.getString(6));
+
+			// add restaurant to list
+			list.add(restaurant);
 		}
 		return list;
 	}
-
-	@Override
-	public JSONObject searchRestaurantById(int restaurantId) throws SQLException {
+	
+	public List<Restaurant> getRecentlyAddedRestaurant() throws SQLException {
+		List<Restaurant> list = new ArrayList<>();
 		Connection connection = dataSource.getConnection();
-		PreparedStatement preparedStatement = connection.prepareStatement(sqlQueries.getProperty("SEARCH_RESTAURANT_BY_ID"));
-		preparedStatement.setInt(1, restaurantId);
+		PreparedStatement preparedStatement = connection.prepareStatement(sqlQueries.getProperty("SEARCH_RESTAURANT_RECENTLY_ADDED"));
 		ResultSet resultSet = preparedStatement.executeQuery();
-		if (resultSet.next()) {
-			JSONObject r = new JSONObject();
-			r.put("restaurantid", resultSet.getInt(1));
-			r.put("ownername", resultSet.getString(2));
-			r.put("restaurantname", resultSet.getString(3));
-			r.put("localityname", resultSet.getString(4));
-			r.put("ncrregion", resultSet.getString(5));
-			return r;
+		while (resultSet.next()) {
+			// Create a new Restaurant
+			Restaurant restaurant = new Restaurant();
+
+			// set dependent beans
+			restaurant.setOwner(new RestaurantOwner());
+			restaurant.setLocality(new Locality());
+
+			// fetch results
+			restaurant.setId(resultSet.getInt(1));
+			restaurant.getOwner().setFirstName(resultSet.getString(2));
+			restaurant.getOwner().setLastName(resultSet.getString(3));
+			restaurant.setName(resultSet.getString(4));
+			restaurant.getLocality().setLocalityName(resultSet.getString(5));
+			restaurant.getLocality().setNcrRegionName(resultSet.getString(6));
+
+			// add restaurant to list
+			list.add(restaurant);
 		}
-		return null;
+		return list;
 	}
 
 }

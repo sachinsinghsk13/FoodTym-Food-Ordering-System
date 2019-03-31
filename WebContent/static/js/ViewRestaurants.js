@@ -1,4 +1,4 @@
-/// <reference path="jquery-3.3.1.js"/>
+/// <reference path="../jquery-3.3.1.js"/>
 function autocompleteSetUp() {
 
     function NcrRegionAutocompletion() {
@@ -157,23 +157,39 @@ function autocompleteSetUp() {
 }
 
 function setUpSearchBox() {
-    $('#search-type-box .custom-control-input').on('change',(evt)=> {
+    $('#search-type-box .custom-control-input').on('change', (evt) => {
         inp = $(evt.target);
         if (inp.is(':checked')) {
             $('.search-type').hide("fast");
             if (inp.attr('id') == 'by-id') {
                 $('#search-by-id').show("fast");
-            } else if (inp.attr('id') == 'by-locality'){
+            } else if (inp.attr('id') == 'by-locality') {
                 $('#search-by-locality').show("fast");
-            }else if (inp.attr('id') === 'by-name') {
+            } else if (inp.attr('id') === 'by-name') {
                 $('#search-by-name').show('fast');
             }
 
         }
-    })
+    });
+
+
+    $('.search-button').on('click', (evt) => {
+        $('#search-type-box .custom-control-input').each((index, element) => {
+            if ($(element).is(':checked')) {
+                switch ($(element).attr('id')) {
+                    case "by-id":
+                }
+            }
+        });
+    });
+
 }
 
-$(document).ready(()=> {
+function viewRestaurant() {
+
+}
+
+$(document).ready(() => {
     autocompleteSetUp();
     setUpSearchBox();
 });

@@ -1,21 +1,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib tagdir="/WEB-INF/tags" prefix="cus" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/bootstrap.min.css">
+<cus:bootstrapcss/>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/static/css/admin.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/css/all.min.css">
-<script src="${pageContext.request.contextPath}/static/jquery.min.js""></script>
-<script src="${pageContext.request.contextPath}/static/popper.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/static/bootstrap.min.js"></script>
+<cus:bootstrapjs/>
 <script
 	src="${pageContext.request.contextPath}/static/js/script.js"></script>
 	<script
@@ -33,7 +27,7 @@
 </style>
 </head>
 <body>
-	<c:import url="jspinclude/adminheader.jsp"></c:import>
+	<cus:adminheader activelink="restauarnt"/>
 
 	<ul class="nav nav-tabs" role="tabs-list">
 		<li class="nav-item"><a href="#restaurant-tab" data-toggle="tab"
@@ -237,7 +231,7 @@
         </div>
         <div id="add-food-menu-tab" class="tab-pane container-fluid">
             <div class="container">
-                <h3 class="m-3 text-center">Add New Food Item</h3>
+                <h3 class="m-3 text-center">Add New Food Item - ${requestScope.restaurant.name}</h3>
                 <div style="display:none" id="restaurantId" data-restaurant-id="${requestScope.restaurant.id}"></div>
                 <h4>General Details</h4>
                 <div class="form-row">

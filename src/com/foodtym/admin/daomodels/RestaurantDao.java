@@ -12,7 +12,6 @@ public interface RestaurantDao {
 	public Restaurant getRestaurant(int restaurantId) throws SQLException;
 	public int insertRestaurant(Restaurant restaurant) throws SQLException;
 	public byte[] getRestaurantBanner(int restaurantId) throws SQLException, IOException;
-	public JSONObject searchRestaurantById(int restaurantId) throws SQLException;
-	public List<JSONObject> searchRestaurantByName(String text) throws SQLException;
-	public List<JSONObject> searchRestaurantByLocality(String locality, String region) throws SQLException;
+	public List<Restaurant> searchRestaurantByNameOrId(String text) throws SQLException;
+	public List<Restaurant> searchRestaurantByLocality(String locality, String region) throws SQLException;
 }
