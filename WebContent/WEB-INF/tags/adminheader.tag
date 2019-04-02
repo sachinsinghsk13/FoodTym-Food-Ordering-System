@@ -14,10 +14,10 @@
 			<li class="nav-item <c:if test="${activelink eq 'home'}">active</c:if> "><a href="/FoodTymAdmin/Admin/Admin.jsp" class="nav-link"><i
 					class="fas fa-home"></i> Home</a></li>
 					
-			<li class="nav-item <c:if test="${activelink eq 'restaurant'}">active</c:if>"> <a href="/FoodTymAdmin/Admin/AllRestaurants.jsp" class="nav-link"><i
+			<li class="nav-item <c:if test="${activelink eq 'restaurant'}">active</c:if>"> <a href="/FoodTymAdmin/Admin/Restaurants.jsp" class="nav-link"><i
 					class="fas fa-utensils"></i> Restaurants</a></li>
 					
-			<li class="nav-item <c:if test="${activelink eq 'deliveryperson'}">active</c:if>"><a href="#" class="nav-link"><i
+			<li class="nav-item <c:if test="${activelink eq 'deliveryperson'}">active</c:if>"><a href="/FoodTymAdmin/Admin/DeliveryPersons.jsp" class="nav-link"><i
 					class="fas fa-truck"></i> Delivery Persons</a></li>
 		</ul>
 		<div class="my-2 my-lg-0">

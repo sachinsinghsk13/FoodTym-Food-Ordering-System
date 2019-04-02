@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -102,9 +103,62 @@ public class DeliveryPersonDaoImpl implements DeliveryPersonDao {
 		}
 	}
 	
-	public List<DeliveryPerson> getDeliveryPersonByLocality(String locality) throws SQLException {
+	public List<DeliveryPerson> getDeliveryPersonByDeliveryArea(String region,String locality) throws SQLException {
+		List<DeliveryPerson> list = new ArrayList<>();
 		Connection connection = dataSource.getConnection();
-		return null;
+		PreparedStatement preparedStatement = connection.prepareStatement(sqlQueries.getProperty("GET_DELIVERY_PERSONS_OF_DELIVERY_AREA"));
+		preparedStatement.setString(1, region);
+		preparedStatement.setString(2, locality);
+		ResultSet resultSet = preparedStatement.executeQuery();
+		
+		while(resultSet.next()) {
+			DeliveryPerson dp = new DeliveryPerson();
+			dp.setId(resultSet.getInt(1));
+			dp.setFirstName(resultSet.getString(2));
+			dp.setLastName(resultSet.getString(3));
+			dp.setFatherName(resultSet.getString(4));
+			dp.setMobileNo(resultSet.getString(5));
+			list.add(dp);
+		}
+		
+		return list;
+	}
+	
+	public List<DeliveryPerson> getRecentlyAddedDeliveryPersons() throws SQLException {
+		List<DeliveryPerson> list = new ArrayList<>();
+		Connection connection = dataSource.getConnection();
+		PreparedStatement preparedStatement = connection.prepareStatement(sqlQueries.getProperty("SEARCH_RECENTLY_ADDED_DELIVERY_PERSON"));
+		ResultSet resultSet = preparedStatement.executeQuery();
+		while(resultSet.next()) {
+			DeliveryPerson dp = new DeliveryPerson();
+			dp.setId(resultSet.getInt(1));
+			dp.setFirstName(resultSet.getString(2));
+			dp.setLastName(resultSet.getString(3));
+			dp.setFatherName(resultSet.getString(4));
+			dp.setMobileNo(resultSet.getString(5));
+			list.add(dp);
+		}
+		return list;
+	}
+	public List<DeliveryPerson> searchDeliveryPersonByNameId(String text) throws SQLException {
+		List<DeliveryPerson> list = new ArrayList<>();
+		Connection connection = dataSource.getConnection();
+		PreparedStatement preparedStatement = connection.prepareStatement(sqlQueries.getProperty("SEARCH_DELIVERY_PERSON_BY_NAMEID"));
+		preparedStatement.setString(1, text + "%");
+		preparedStatement.setString(2, text + "%");
+		preparedStatement.setString(3, text);
+		ResultSet resultSet = preparedStatement.executeQuery();
+		
+		while(resultSet.next()) {
+			DeliveryPerson dp = new DeliveryPerson();
+			dp.setId(resultSet.getInt(1));
+			dp.setFirstName(resultSet.getString(2));
+			dp.setLastName(resultSet.getString(3));
+			dp.setFatherName(resultSet.getString(4));
+			dp.setMobileNo(resultSet.getString(5));
+			list.add(dp);
+		}
+		return list;
 	}
 	
 	@Override

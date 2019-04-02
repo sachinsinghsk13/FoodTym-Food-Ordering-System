@@ -9,24 +9,26 @@
 <cus:bootstrapcss />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/admin.css"/>
 <cus:bootstrapjs />
-<script src="${pageContext.request.contextPath}/static/js/foodtym.restaurants.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/foodtym.deliveryperson.js"></script>
+<title>Delivery Persons | FoodTym | Admin</title>
 </head>
 <body>
 	<%--Admin Header --%>
-	<cus:adminheader activelink="restaurant" />
+	<cus:adminheader activelink="deliveryperson" />
 	<%--Search Section --%>
 	<div class="container-fluid my-3 border-bottom">
+		<h3>Delivery Persons</h3>
 		<div class="row">
 			<div class="col-sm-4 m-1">
-				<a href="${pageContext.request.contextPath}/Admin/RestaurantRegistration.jsp" class="btn btn-success mx-1 my-2"> <i
-					class="fas fa-plus"></i> New Restaurant
+				<a href="${pageContext.request.contextPath}/Admin/DeliveryPersonRegistration.jsp" class="btn btn-success mx-1 my-2"> <i
+					class="fas fa-plus"></i> New Registration
 				</a>
 				<button class="btn btn-primary mx-1 my-2" id="search-type-btn"
-					data-current="byname">Search In Localities</button>
+					data-current="byname">Search by Delivery Areas</button>
 			</div>
 			<div class="col-md-7 m-2" id="search-by-name-box">
 				<input type="text" id="restaurant-search-bar"
-					placeholder="Enter Restauant ID or Name">
+					placeholder="Enter Delivery Person ID or Name">
 			</div>
 			<div class="col-sm-6 m-2" id="search-by-locality-box"
 				style="display: none">
@@ -53,6 +55,8 @@
 	</div>
 	<%--Result Display Area --%>
 	 <div class="container-fluid" id="result-container">
+	 	<%--Display Now --%>
+	 	<h4 class="text-muted" id="display-info"></h4>
 	 	<%--Ajax Loading Animation --%>
         <div class="text-center"  style="display:none;margin-top:150px;" id="loading-animation">
             <div class="spinner-grow text-primary" role="status">
@@ -65,6 +69,7 @@
                 <span class="sr-only">Loading...</span>
             </div>
         </div>
+        
         <%--Container to display result items --%>
         <div class="d-flex justify-content-center flex-wrap" id="result-item-container">
             

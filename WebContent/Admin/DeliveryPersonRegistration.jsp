@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib tagdir="/WEB-INF/tags"  prefix="cus"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,21 +7,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/bootstrap.min.css">
+<cus:bootstrapcss/>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/static/css/admin.css">
-<script src="${pageContext.request.contextPath}/static/jquery.min.js""></script>
-<script src="${pageContext.request.contextPath}/static/popper.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/static/bootstrap.min.js"></script>
+<cus:bootstrapjs/>
 <script
 	src="${pageContext.request.contextPath}/static/js/script.js"></script>
 <title>New Delivery Person</title>
 </head>
 <body>
-	<c:import url="jspinclude/adminheader.jsp"></c:import>
-	<div class="container-fluid">
+	<cus:adminheader activelink="deliveryperson"/>
+	<div class="container-fluid p-3">
 		<div class="row">
 			<div class="col-md-12">
 				<h3>New Delivery Person</h3>
@@ -29,7 +25,7 @@
 		</div>
 		<form action="${pageContext.request.contextPath}/Admin/DeliveryPersons" method="POST" enctype="multipart/form-data">
 			<div class="row">
-				<legend>Personal Details</legend>
+				<legend class="p-3">Personal Details</legend>
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="dpFirstName">First Name: </label> <input type="text"

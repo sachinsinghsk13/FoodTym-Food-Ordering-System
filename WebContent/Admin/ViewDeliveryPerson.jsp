@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="cus"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,24 +7,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/bootstrap.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/css/admin.css">
-<script src="${pageContext.request.contextPath}/static/jquery.min.js""></script>
-<script src="${pageContext.request.contextPath}/static/popper.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/static/bootstrap.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/static/js/delivery_person_view.js"></script>
+<cus:bootstrapcss/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/admin.css">
+<cus:bootstrapjs/>
+<script src="${pageContext.request.contextPath}/static/js/delivery_person_view.js"></script>
 <title>${requestScope.restaurant.name}</title>
 </head>
 <body>
 	<!-- This Div stores the delivery person id .. to use in javascript and ajax calls -->
 	<div style="display:none" data-id="${requestScope.deliveryPerson.id}" id="delivery-person-id"></div>
 	
-	
-	<c:import url="jspinclude/adminheader.jsp"></c:import>
+	<cus:adminheader activelink="deliveryperson"/>
 	<ul class="nav nav-tabs" role="tabs-list">
 		<li class="nav-item"><a href="#delivery-person-tab"
 			data-toggle="tab" class="nav-link active">Delivery Person</a></li>
