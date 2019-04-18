@@ -218,5 +218,33 @@ public class LocalityDaoImpl implements LocalityDao {
 		}
 	}
 	
+	public List<Locality> getAllNcrRegions() throws SQLException {
+		List<Locality> list = new ArrayList<>();
+		Connection connection = dataSource.getConnection();
+		PreparedStatement statement = connection.prepareStatement(sqlQuries.getProperty("GET_ALL_NCR_REGIONS"));
+		ResultSet resultSet = statement.executeQuery();
+		while(resultSet.next()) {
+			Locality locality = new Locality();
+			locality.setNcrRegionId(resultSet.getInt(1));
+			locality.setNcrRegionName(resultSet.getString(2));
+			list.add(locality);
+		}
+		return list;
+	}
+	
+	public List<Locality> getAllLocalityInRegion(int id) throws SQLException {
+		List<Locality> list = new ArrayList<>();
+		Connection connection = dataSource.getConnection();
+		PreparedStatement statement = connection.prepareStatement(sqlQuries.getProperty("GET_ALL_LOCALITY_IN_REGION"));
+		ResultSet resultSet = statement.executeQuery();
+		while(resultSet.next()) {
+			Locality locality = new Locality();
+			locality.setLocalityId(resultSet.getInt(1));
+			locality.setLocalityName(resultSet.getString(2));
+			locality.setNcrRegionId(id);
+		}
+		return list;
+		
+	}
 	
 }

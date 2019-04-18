@@ -90,8 +90,6 @@ CREATE TABLE Customers (
 
     Name VARCHAR(40) NOT NULL,
 
-    EmailAddress VARCHAR(65) UNIQUE NOT NULL,
-
     MobileNumber CHAR(10) UNIQUE NOT NULL,
 
     Password CHAR(40) NOT NULL

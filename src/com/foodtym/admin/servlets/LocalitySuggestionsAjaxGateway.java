@@ -51,7 +51,6 @@ public class LocalitySuggestionsAjaxGateway extends HttpServlet {
 				JSONArray jsonArray = new JSONArray();
 				jsonArray.addAll(list);
 				String json = jsonArray.toJSONString();
-				System.out.println("in....");
 				response.getWriter().println(json);
 			} catch (SQLException e) {
 				e.printStackTrace();
