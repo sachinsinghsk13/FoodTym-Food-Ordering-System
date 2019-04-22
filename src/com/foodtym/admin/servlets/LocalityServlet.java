@@ -31,9 +31,26 @@ public class LocalityServlet extends HttpServlet {
 		if (search_for != null && search_for.equals("regions")) {
 			try {
 				List<Locality> list = daoImpl.getAllNcrRegions();
-				
-				
+				StringBuilder sb = new StringBuilder();
+				for (Locality locality : list) {
+					sb.append("<option value=\""+locality.getNcrRegionId()+"\">"+locality.getNcrRegionName()+"</option>\n");
+				}
+				response.getWriter().println(sb.toString());
 			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		else if (search_for != null && search_for.equals("locality")){
+			int region_id = Integer.parseInt(request.getParameter("regionid"));
+			try {
+				List<Locality> list = daoImpl.getAllLocalityInRegion(region_id);
+				StringBuilder sb = new StringBuilder();
+				for (Locality locality : list) {
+					sb.append("<option value=\""+locality.getLocalityId()+"\">"+locality.getLocalityName()+"</option>\n");
+				}
+				response.getWriter().println(sb.toString());
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

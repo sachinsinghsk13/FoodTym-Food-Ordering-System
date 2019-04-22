@@ -236,12 +236,14 @@ public class LocalityDaoImpl implements LocalityDao {
 		List<Locality> list = new ArrayList<>();
 		Connection connection = dataSource.getConnection();
 		PreparedStatement statement = connection.prepareStatement(sqlQuries.getProperty("GET_ALL_LOCALITY_IN_REGION"));
+		statement.setInt(1, id);
 		ResultSet resultSet = statement.executeQuery();
 		while(resultSet.next()) {
 			Locality locality = new Locality();
 			locality.setLocalityId(resultSet.getInt(1));
 			locality.setLocalityName(resultSet.getString(2));
 			locality.setNcrRegionId(id);
+			list.add(locality);
 		}
 		return list;
 		

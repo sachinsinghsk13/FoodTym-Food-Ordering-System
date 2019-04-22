@@ -94,3 +94,8 @@
     transform: scale(1.02);
     transition: transform 50ms;
 }
+
+.restaurant-banner {
+	width:400px;
+	height:200px;
+}

@@ -1,6 +1,7 @@
 package com.foodtym.admin.servlets;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.Properties;
 
@@ -16,7 +17,7 @@ import com.foodtym.admin.daomodels.RestaurantDaoImpl;
 
 
 
-@WebServlet("/Admin/Restaurants/Banners")
+@WebServlet("/Restaurants/Banners")
 public class Banners extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,11 +36,19 @@ public class Banners extends HttpServlet {
 		byte[] data = null;
 		try {
 			data = restaurantDaoImpl.getRestaurantBanner(restaurantId);
+			if (data != null)
+				response.getOutputStream().write(data);
+			else {
+				InputStream is = getServletContext().getResourceAsStream("WEB-INF/img/download.png");
+				byte[] data1 = is.readAllBytes();
+				response.getOutputStream().write(data1);
+			}
 		} catch (SQLException e) {
-			e.printStackTrace();
-			response.sendError(404);
+			InputStream is = getServletContext().getResourceAsStream("WEB-INF/img/download.png");
+			byte[] data1 = is.readAllBytes();
+			response.getOutputStream().write(data1);
 		}
-		response.getOutputStream().write(data);
+		
 	}
 
 }

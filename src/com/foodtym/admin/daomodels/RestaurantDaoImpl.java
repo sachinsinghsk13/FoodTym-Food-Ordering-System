@@ -159,7 +159,9 @@ public class RestaurantDaoImpl implements RestaurantDao {
 		ResultSet resultSet = statement.executeQuery();
 		if (resultSet.next()) {
 			InputStream inputStream = resultSet.getBinaryStream(1);
-			byte[] data = inputStream.readAllBytes();
+			byte[] data = null;
+			if (inputStream != null)
+				data = inputStream.readAllBytes();
 			resultSet.close();
 			statement.close();
 			connection.close();

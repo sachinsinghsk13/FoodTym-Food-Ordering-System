@@ -57,7 +57,7 @@
 				</div>
 				<div class="col-md-6">
 					<img src="${pageContext.request.contextPath}/Admin/Restaurants/Banners?restaurantId=${requestScope.restaurant.id}" id="banner-img" alt=""
-						class="img-fluid">
+						class="restaurant-banner">
 				</div>
 			</div>
 			<div class="row">
